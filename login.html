@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    main {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    label {
+      font-weight: 600;
+      color: #444;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #00f2fe, #4facfe);
+    }
+    p {
+      text-align: center;
+      margin-top: 15px;
+    }
+    p a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <form id="loginForm">
+      <h1>Login</h1>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" required>
+
+      <button type="button" onclick="login()">Login</button>
+
+      <p>Don't have an account? <a href="signup-page.html">Sign up</a></p>
+    </form>
+  </main>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value.trim()
+      const password = document.getElementById('password').value.trim()
+
+      const users = JSON.parse(localStorage.getItem('users')) || []
+
+      const user = users.find(u => u.email === email && u.password === password)
+
+      if (user) {
+        alert(`Welcome back, ${user.username}!`)
+        localStorage.setItem('loggedInUser', JSON.stringify(user))
+        window.location.href = "dashboard.html"
+      } else {
+        alert("Invalid email or password. Please try again.")
+      }
+    }
+  </script>
+</body>
+</html>
+

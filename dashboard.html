@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f7f9fb;
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 0;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 22px;
+    }
+
+    .menu {
+      list-style: none;
+    }
+
+    .menu li {
+      padding: 15px 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .menu li:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .menu li.active {
+      background: rgba(255, 255, 255, 0.3);
+      font-weight: bold;
+    }
+
+    .logout {
+      text-align: center;
+      padding: 15px 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+    }
+
+    .logout:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #f7f9fb;
+    }
+    .navbar {
+      background-color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar h1 {
+      font-size: 20px;
+      color: #333;
+    }
+
+    .navbar .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar .user img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div>
+      <h2>My Dashboard</h2>
+      <ul class="menu">
+        <li class="active">🏠 Home</li>
+        <li>📄 My Profile</li>
+        <li>📊 Analytics</li>
+        <li>⚙️ Settings</li>
+      </ul>
+    </div>
+    <div class="logout" onclick="logout()">🚪 Logout</div>
+  </aside>
+
+  <div class="main-content">
+    <nav class="navbar">
+      <h1>Welcome back, <span id="username">User</span> 👋</h1>
+      <div class="user">
+        <img src="" alt="User Profile">
+      </div>
+    </nav>
+  <script>
+  
+    document.getElementById('username').textContent = localStorage.getItem('userName') || 'User';
+
+    function logout() {
+      alert("You have logged out successfully!");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>
