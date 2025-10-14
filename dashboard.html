@@ -124,8 +124,10 @@
     document.getElementById('username').textContent = localStorage.getItem('userName') || 'User';
 
     function logout() {
-      alert("You have logged out successfully!");
+     let log =  confirm('Are you sure you want to logout?')
+     if (log) {
       window.location.href = "login.html";
+     }
     }
   </script>
 
