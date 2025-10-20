@@ -1,135 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>User Dashboard</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      body,
+      html {
+        height: 100%;
+        background: linear-gradient(to right, #43c6ac, #f8ffae);
+      }
+      .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+      }
 
-    body {
-      background-color: #f7f9fb;
-      display: flex;
-      min-height: 100vh;
-    }
-    .sidebar {
-      width: 220px;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 20px 0;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    }
+      .sidebar {
+        width: 280px;
+        background: linear-gradient(to bottom, #00183b, #004a9f);
+        color: white;
+        padding: 30px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+        border-radius: 0 20px 20px 0;
+      }
+      .sidebar h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: rgb(248, 255, 174);
+      }
+      .menu {
+        list-style: none;
+      }
+      .menu li {
+        padding: 18px 35px;
+        cursor: pointer;
+        color: rgba(230, 230, 230, 0.9);
+      }
+      .logout {
+        text-align: center;
+        padding: 18px 25px;
+        cursor: pointer;
+        margin: 0 20px;
+      }
 
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 22px;
-    }
+      .main-content {
+        flex: 1;
+        padding: 20px;
+      }
+      .navbar {
+        background: linear-gradient(to right, #00183b, #00306b);
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+      .user-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #1fbbb0, #f8ffae);
+        color: #00183b;
+        font-weight: bold;
+        border: 2px solid #1fbbb0;
+      }
 
-    .menu {
-      list-style: none;
-    }
+      .post-form {
+        background: white;
+        padding: 14px;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        max-width: 700px;
+        margin-bottom: 20px;
+      }
+      .post-form input[type="text"],
+      .post-form input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      .post-form button {
+        padding: 10px 14px;
+        background: #004a9f;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
 
-    .menu li {
-      padding: 15px 25px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
+      #preview {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      }
+      .post-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+      .post-card img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        display: block;
+      }
+      .post-card .content {
+        padding: 12px;
+      }
+      .post-card h3 {
+        margin-bottom: 8px;
+        color: #00306b;
+      }
+      .post-card p {
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 14px;
+      }
+      .like-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 6px 8px;
+      }
+      .like-btn.liked {
+        color: #e74c3c;
+      }
+    </style>
+  </head>
 
-    .menu li:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+  <body>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div>
+          <h2>My Dashboard</h2>
+          <ul class="menu">
+            <li>🏠 Home</li>
+            <li>👤 My Profile</li>
+            <li>📊 Analytics</li>
+            <li>⚙️ Settings</li>
+          </ul>
+        </div>
+        <div class="logout" onclick="logoutUser()">🚪 Logout</div>
+      </aside>
 
-    .menu li.active {
-      background: rgba(255, 255, 255, 0.3);
-      font-weight: bold;
-    }
+      <main class="main-content">
+        <div class="navbar">
+          <div>
+            <strong>Welcome back, <span id="username">User</span></strong>
+          </div>
+          <div class="user-area">
+            <div id="userEmail"></div>
+            <div id="userAvatar" class="avatar">U</div>
+          </div>
+        </div>
 
-    .logout {
-      text-align: center;
-      padding: 15px 25px;
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      cursor: pointer;
-    }
+        <div class="post-form">
+          <input type="text" id="title" placeholder="Enter title" />
+          <input type="text" id="description" placeholder="Enter description" />
+          <input type="file" id="picture" accept="image/*" />
+          <div style="margin-top: 8px">
+            <button type="button" onclick="postBlog()">Post</button>
+          </div>
+        </div>
 
-    .logout:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background-color: #f7f9fb;
-    }
-    .navbar {
-      background-color: white;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar h1 {
-      font-size: 20px;
-      color: #333;
-    }
-
-    .navbar .user {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .navbar .user img {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-    }
-  </style>
-</head>
-<body>
-
-  <aside class="sidebar">
-    <div>
-      <h2>My Dashboard</h2>
-      <ul class="menu">
-        <li class="active">🏠 Home</li>
-        <li>📄 My Profile</li>
-        <li>📊 Analytics</li>
-        <li>⚙️ Settings</li>
-      </ul>
+        <div id="preview"></div>
+      </main>
     </div>
-    <div class="logout" onclick="logout()">🚪 Logout</div>
-  </aside>
 
-  <div class="main-content">
-    <nav class="navbar">
-      <h1>Welcome back, <span id="username">User</span> 👋</h1>
-      <div class="user">
-        <img src="" alt="User Profile">
-      </div>
-    </nav>
-  <script>
+    <script>
   
-    document.getElementById('username').textContent = localStorage.getItem('userName') || 'User';
+      function checkLogin() {
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+          alert("Please login first.");
+          window.location.href = "login.html";
+          return false;
+        }
+        return true;
+      }
 
-    function logout() {
-     let log =  confirm('Are you sure you want to logout?')
-     if (log) {
-      window.location.href = "login.html";
-     }
-    }
-  </script>
 
-</body>
+      if (!checkLogin()) {
+        throw new Error("User not logged in");
+      }
+
+  
+      let posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+  
+      const titleInput = document.getElementById("title");
+      const descriptionInput = document.getElementById("description");
+      const pictureInput = document.getElementById("picture");
+      const preview = document.getElementById("preview");
+      const usernameSpan = document.getElementById("username");
+      const userEmailSpan = document.getElementById("userEmail");
+      const userAvatar = document.getElementById("userAvatar");
+
+
+      function showUser() {
+        const currentUser = localStorage.getItem("currentUser");
+        const users = JSON.parse(localStorage.getItem("databaseOctober")) || [];
+
+        if (!currentUser) {
+          alert("Please login first.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        let user = null;
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].email === currentUser) {
+            user = users[i];
+            break;
+          }
+        }
+
+        if (user) {
+          usernameSpan.textContent = user.username;
+          userEmailSpan.textContent = user.email;
+          const firstLetter = user.username
+            ? user.username.charAt(0).toUpperCase()
+            : "U";
+          userAvatar.textContent = firstLetter;
+        } else {
+          alert("Please login first.");
+          window.location.href = "login.html";
+        }
+      }
+      function showPosts() {
+        preview.innerHTML = "";
+
+        for (let i = 0; i < posts.length; i++) {
+          const post = posts[i];
+
+          const card = document.createElement("div");
+          card.className = "post-card";
+
+          const img = document.createElement("img");
+          img.src = post.image || "";
+          card.appendChild(img);
+
+          const content = document.createElement("div");
+          content.className = "content";
+
+          const h3 = document.createElement("h3");
+          h3.textContent = post.title;
+          content.appendChild(h3);
+
+          const p = document.createElement("p");
+          p.textContent = post.description;
+          content.appendChild(p);
+
+          const likeBtn = document.createElement("button");
+          likeBtn.className = "like-btn";
+          likeBtn.textContent = post.liked ? "💔 Unlike" : "❤️ Like";
+
+          likeBtn.onclick = function () {
+            toggleLike(i);
+          };
+
+          content.appendChild(likeBtn);
+          card.appendChild(content);
+          preview.appendChild(card);
+        }
+      }
+
+      function addPost() {
+        if (!checkLogin()) return;
+
+        const title = titleInput.value.trim();
+        const desc = descriptionInput.value.trim();
+        const file = pictureInput.files[0];
+
+        if (!title || !desc || !file) {
+          alert("Please fill all fields and select an image.");
+          return;
+        }
+
+        for (let i = 0; i < posts.length; i++) {
+          if (posts[i].title === title) {
+            alert("A post with this title already exists.");
+            return;
+          }
+        }
+
+        if (file.size / 1024 > 400) {
+          alert("File too large. Choose one below 400KB.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const newPost = {
+            title: title,
+            description: desc,
+            image: e.target.result,
+            liked: false,
+          };
+          posts.unshift(newPost);
+          localStorage.setItem("posts", JSON.stringify(posts));
+          showPosts();
+          titleInput.value = "";
+          descriptionInput.value = "";
+          pictureInput.value = "";
+        };
+
+        reader.readAsDataURL(file);
+      }
+
+      function toggleLike(index) {
+        posts[index].liked = !posts[index].liked;
+        localStorage.setItem("posts", JSON.stringify(posts));
+        showPosts();
+      }
+
+      function logout() {
+        const sure = confirm("Are you sure you want to logout?");
+        if (sure) {
+          localStorage.removeItem("currentUser");
+          window.location.href = "login.html";
+        }
+      }
+
+      showUser();
+      showPosts();
+    </script>
+  </body>
 </html>

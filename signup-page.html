@@ -3,270 +3,269 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Signup Form</title>
+    <title>Sign Up</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
     <style>
       * {
         box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
+        font-family: sans-serif;
       }
 
       body {
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #4facfe, #00f2fe);
-        height: 100vh;
+        background: linear-gradient(to right, #43c6ac, #f8ffae);
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 100vh;
       }
 
-      main {
-        background-color: #fff;
-        border-radius: 12px;
-        padding: 40px;
-        width: 100%;
-        max-width: 400px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.8s ease;
+      form {
+        background: #00183b;
+        padding: 30px;
+        border-radius: 10px;
+        width: 350px;
+        color: white;
       }
 
       h1 {
         text-align: center;
-        color: #333;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
       }
 
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+      .form-group {
+        position: relative;
+        margin-bottom: 20px;
       }
 
-      label {
-        font-weight: 600;
-        color: #444;
-      }
-
-      input {
+      .form-group input {
         width: 100%;
-        padding: 10px 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        outline: none;
-        transition: border-color 0.3s;
-      }
-
-      input:focus {
-        border-color: #4facfe;
-      }
-
-      small {
-        color: red;
-        font-size: 12px;
-        height: 12px;
-      }
-
-      button {
-        width: 100%;
-        height: 40px;
-        background: linear-gradient(90deg, #4facfe, #00f2fe);
-        color: white;
-        font-weight: bold;
+        padding: 10px 35px 10px 10px;
         border: none;
-        border-radius: 8px;
+        border-radius: 5px;
+      }
+
+      .form-group i.fa-eye,
+      .form-group i.fa-eye-slash {
+        position: absolute;
+        right: 10px;
+        top: 10px;
         cursor: pointer;
-        margin-top: 10px;
-        transition: transform 0.2s ease, background 0.3s ease;
-      }
-
-      button:hover:enabled {
-        transform: translateY(-2px);
-        background: linear-gradient(90deg, #00f2fe, #4facfe);
-      }
-
-      button:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-      }
-
-      .show-pass {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 14px;
         color: #555;
       }
 
-      p {
+      .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 3px;
+        height: 14px;
+      }
+
+      input[type="button"] {
+        width: 100%;
+        padding: 10px;
+        background: #1fbbb0;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .form-bottom {
         text-align: center;
-        font-size: 14px;
-        color: #666;
         margin-top: 15px;
       }
 
-      p a {
-        color: #4facfe;
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      p a:hover {
-        text-decoration: underline;
+      table,
+      th,
+      tr,
+      td,
+      thead,
+      tbody {
+        border: 1px solid blue;
+        border-collapse: collapse;
+        padding: 10px;
       }
     </style>
   </head>
   <body>
-    <main>
-      <form id="signupForm">
-        <h1>Sign Up</h1>
+    <form>
+      <h1>Sign Up</h1>
 
-        <label for="userName">Username</label>
+      <div class="form-group">
         <input
           type="text"
-          id="userName"
-          placeholder="Enter username"
-          oninput="validateForm()"
+          id="namee"
+          placeholder="Name"
+          oninput="validateName()"
         />
-        <small id="userError"></small>
+        <div class="error" id="nameError"></div>
+      </div>
 
-        <label for="emailBox">Email</label>
+      <div class="form-group">
         <input
           type="email"
-          id="emailBox"
-          placeholder="Enter email"
-          oninput="validateForm()"
+          id="email"
+          placeholder="Email"
+          oninput="validateEmail()"
         />
-        <small id="emailError"></small>
+        <div class="error" id="emailError"></div>
+      </div>
 
-        <label for="passwordbox">Password</label>
+      <div class="form-group">
         <input
           type="password"
-          id="passwordbox"
-          placeholder="Enter password"
-          oninput="validateForm()"
+          id="password"
+          placeholder="Password"
+          oninput="validatePassword()"
         />
-        <small id="passError"></small>
+        <i
+          class="fas fa-eye"
+          id="togglePass"
+          onclick="togglePassword('password','togglePass')"
+        ></i>
+        <div class="error" id="passwordError"></div>
+      </div>
 
-        <label for="confirmPassword">Confirm Password</label>
+      <div class="form-group">
         <input
           type="password"
-          id="confirmPassword"
-          placeholder="Confirm password"
-          oninput="validateForm()"
+          id="confirmpassword"
+          placeholder="Confirm Password"
+          oninput="validateConfirm()"
         />
-        <small id="confirmError"></small>
+        <i
+          class="fas fa-eye"
+          id="toggleConfirm"
+          onclick="togglePassword('confirmpassword','toggleConfirm')"
+        ></i>
+        <div class="error" id="confirmError"></div>
+      </div>
 
-        <div class="show-pass">
-          <input
-            type="checkbox"
-            id="showPassword"
-            onclick="togglePasswords()"
-          />
-          <label for="showPassword">Show Password</label>
-        </div>
+      <div style="margin: 10px 0">
+        <input id="agree" type="checkbox" checked /> I agree to terms and
+        conditions
+      </div>
+      <input type="button" value="Sign Up" onclick="submitForm()" />
+      <div class="form-bottom">
+        <a href="login.html" style="color: #1fbbb0; text-decoration: none"
+          >Already have an account? Login</a
+        >
+      </div>
+    </form>
 
-        <button type="button" id="btn" onclick="signUp()" disabled>
-          Sign Up
-        </button>
-        <p>Already have an account? <a href="login.html">Login here</a></p>
-      </form>
-    </main>
+    <div style="margin-top: 50px; background: white; padding: 10px">
+      <table>
+        <thead>
+          <th>S/n</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Password</th>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
 
     <script>
-      let users = []
+      let dataBase = JSON.parse(localStorage.getItem("databaseOctober")) || [];
+      displayUsers();
 
-      function togglePasswords() {
-        const pass1 = document.getElementById("passwordbox")
-        const pass2 = document.getElementById("confirmPassword")
-        const checkbox = document.getElementById("showPassword")
+      function validateName() {
+        let name = namee.value.trim();
+        if (name === "") nameError.textContent = "Name is required";
+        else nameError.textContent = "";
+      }
 
-        if (checkbox.checked) {
-          pass1.type = "text"
-          pass2.type = "text"
+      function validateEmail() {
+        let emailVal = email.value.trim();
+        if (emailVal === "") emailError.textContent = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(emailVal))
+          emailError.textContent = "Invalid email format";
+        else if (dataBase.find((u) => u.email === emailVal))
+          emailError.textContent = "Email already exists";
+        else emailError.textContent = "";
+      }
+
+      function validatePassword() {
+        let pass = password.value.trim();
+        if (pass === "") passwordError.textContent = "Password is required";
+        else if (pass.length < 8)
+          passwordError.textContent = "At least 8 characters";
+        else passwordError.textContent = "";
+        validateConfirm();
+      }
+
+      function validateConfirm() {
+        let pass = password.value.trim();
+        let confirm = confirmpassword.value.trim();
+        if (confirm === "")
+          confirmError.textContent = "Please confirm password";
+        else if (confirm !== pass)
+          confirmError.textContent = "Passwords do not match";
+        else confirmError.textContent = "";
+      }
+
+      function togglePassword(fieldId, iconId) {
+        const field = document.getElementById(fieldId);
+        const icon = document.getElementById(iconId);
+        if (field.type === "password") {
+          field.type = "text";
+          icon.classList.replace("fa-eye", "fa-eye-slash");
         } else {
-          pass1.type = "password"
-          pass2.type = "password"
+          field.type = "password";
+          icon.classList.replace("fa-eye-slash", "fa-eye");
         }
       }
 
-      function validateForm() {
-        const userName = document.getElementById("userName").value.trim()
-        const email = document.getElementById("emailBox").value.trim()
-        const password = document.getElementById("passwordbox").value.trim()
-        const confirm = document.getElementById("confirmPassword").value.trim()
+      function submitForm() {
+        validateName();
+        validateEmail();
+        validatePassword();
+        validateConfirm();
 
-        let valid = true
-
-        if (userName === "") {
-          document.getElementById("userError").textContent =
-            "Username is required"
-          valid = false
-        } else {
-          document.getElementById("userError").textContent = ""
+        if (
+          nameError.textContent ||
+          emailError.textContent ||
+          passwordError.textContent ||
+          confirmError.textContent
+        ) {
+          return;
         }
 
-        if (email === "") {
-          document.getElementById("emailError").textContent =
-            "Email is required"
-          valid = false
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-          document.getElementById("emailError").textContent =
-            "Enter a valid email"
-          valid = false
-        } else {
-          document.getElementById("emailError").textContent = ""
+        if (!agree.checked) {
+          alert("Please agree to terms and conditions");
+          return;
         }
 
-        if (password === "") {
-          document.getElementById("passError").textContent =
-            "Password is required"
-          valid = false
-        } else if (password.length < 6) {
-          document.getElementById("passError").textContent =
-            "At least 6 characters"
-          valid = false
-        } else {
-          document.getElementById("passError").textContent = ""
-        }
-
-        if (confirm === "") {
-          document.getElementById("confirmError").textContent =
-            "Confirm your password"
-          valid = false
-        } else if (confirm !== password) {
-          document.getElementById("confirmError").textContent =
-            "Passwords do not match"
-          valid = false
-        } else {
-          document.getElementById("confirmError").textContent = ""
-        }
-
-        document.getElementById("btn").disabled = !valid
-      }
-
-      function signUp() {
-        const userName = document.getElementById("userName").value.trim()
-        const email = document.getElementById("emailBox").value.trim()
-        const password = document.getElementById("passwordbox").value.trim()
-
-        let users = JSON.parse(localStorage.getItem("users")) || []
-        const existingUser = users.find((user) => user.email === email)
-        if (existingUser) {
-          alert("User with this email already exists. Please log in instead.")
-          return
-        }
-
-        const newUser = {
-          username: userName,
-          email: email,
-          password: password,
+        let newUser = {
+          username: namee.value.trim(),
+          email: email.value.trim(),
+          password: password.value.trim(),
         };
-        users.push(newUser)
-        localStorage.setItem("users", JSON.stringify(users))
 
-        alert(`Signup successful! Welcome, ${userName}.`)
-        window.location.href = "login.html"
+        dataBase.push(newUser);
+        localStorage.setItem("databaseOctober", JSON.stringify(dataBase));
+        alert("Account created successfully");
+        displayUsers();
+        location.href = "login.html";
+      }
+
+      function displayUsers() {
+        tbody.innerHTML = "";
+        dataBase.forEach((obj, i) => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${obj.username}</td>
+              <td>${obj.email}</td>
+              <td>${obj.password}</td>
+            </tr>`;
+        });
       }
     </script>
   </body>
 </html>
+
